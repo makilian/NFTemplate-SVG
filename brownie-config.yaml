@@ -1,0 +1,19 @@
+dependencies:
+  - OpenZeppelin/openzeppelin-contracts@4.3.0
+
+compiler:
+  solc:
+    optimizer:
+        details:
+            cse: true
+            yul: true
+    remappings:
+      - '@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.3.0'
+
+wallets:
+  from_key: ${PRIVATE_KEY}
+  from_key_2: ${PRIVATE_KEY_2}
+
+
+networks:
+  default: development
