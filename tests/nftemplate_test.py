@@ -70,7 +70,7 @@ def test_mints():
     svg_bytes = base64.b64decode(a)
     utf = svg_bytes.decode('utf-8')
         
-    assert '<text x="0" y="1" fill="white">Template SVG:' in utf
+    assert '<text x="0" y="100" fill="white">NFTemplate SVG:' in utf
 
     with brownie.reverts("Template: 0.001 ETH to mint"):
         transaction = nft.mint( 
