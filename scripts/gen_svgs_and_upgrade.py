@@ -39,7 +39,7 @@ def main():
 		with open(file_name, "w") as f:
 		    f.write(svg_bytes.decode('utf-8'))
 
-	time.sleep(25)
+	time.sleep(5)
 
 	nft_m_2 = NFTemplateSVGMetadata2.deploy(
 		{"from": dev},
