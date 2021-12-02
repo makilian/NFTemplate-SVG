@@ -1,6 +1,6 @@
 import pytest
 import brownie
-from brownie import NFTemplateSVG, accounts, config, network
+from brownie import NFTemplateSVG, NFTemplateSVGMetadata, accounts, config, network
 import time
 import json
 import base64
@@ -12,10 +12,22 @@ def test_mints():
     dev4 = accounts[3]
 
     publish_source = False
+    
+    nft_m = NFTemplateSVGMetadata.deploy(
+        {"from": dev},
+        publish_source = publish_source
+    )
+
     nft = NFTemplateSVG.deploy(
         {"from": dev},
         publish_source = publish_source
     )
+
+    print(nft_m)
+
+    transaction = nft.setMetadataAddress(nft_m, {"from":dev})
+    transaction.wait(1)
+
 
     transaction = nft.mint( 
        {"from":dev, "amount":1e15})
