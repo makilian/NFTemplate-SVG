@@ -1,4 +1,4 @@
-from brownie import NFTemplateSVG, accounts, config, network
+from brownie import NFTemplateSVG, NFTemplateSVGMetadata, accounts, config, network
 import json
 import base64
 
@@ -7,16 +7,25 @@ def main():
 	dev = accounts[0]
 	print(network.show_active())
 	publish_source = False
+
+	nft_m = NFTemplateSVGMetadata.deploy(
+        {"from": dev},
+        publish_source = publish_source
+    )
+
 	nft = NFTemplateSVG.deploy(
 		{"from": dev},
 		publish_source = publish_source
 	)
 
+	tx = nft.setMetadataAddress(nft_m, {"from":dev})
+	tx.wait(1)
+
 	for i in range(0, nft.maxSupply()):
 		tx = nft.mint({"from":dev, "amount":1e15})
 		tx.wait(1)
 
-	for i in range(0, nft.totalSupply()+1):
+	for i in range(0, nft.totalSupply()):
 		t = nft.tokenURI(i)
 		decoded = base64.b64decode(t[29:])
 		tokenURIJson = json.loads(decoded)
