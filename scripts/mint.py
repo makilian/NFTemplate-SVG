@@ -7,5 +7,5 @@ def main():
 	nft = NFTemplateSVG[len(NFTemplateSVG) - 1]
 
 	for i in range(0, nft.maxSupply()):
-		tx = nft.mint({"from":dev, "amount":10e16})
+		tx = nft.mint({"from":dev, "amount":1e15})
 		tx.wait(1)

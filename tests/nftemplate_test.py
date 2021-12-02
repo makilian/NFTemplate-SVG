@@ -1,6 +1,6 @@
 import pytest
 import brownie
-from brownie import NFTemplateSVG, NFTemplateSVGMetadata, accounts, config, network
+from brownie import NFTemplateSVG, NFTemplateSVGMetadata, NFTemplateSVGMetadata2, accounts, config, network
 import time
 import json
 import base64
@@ -96,3 +96,23 @@ def test_mints():
     with brownie.reverts("Ownable: caller is not the owner"):
         transaction = nft.withdrawAll({"from":dev2})
 
+
+    nft_m_2 = NFTemplateSVGMetadata2.deploy(
+        {"from": dev},
+        publish_source = publish_source
+    )
+
+    transaction = nft.setMetadataAddress(nft_m_2, {"from":dev})
+    transaction.wait(1)
+
+    t = nft.tokenURI(7)
+    decoded = base64.b64decode(t[29:])
+    tokenURIJson = json.loads(decoded)
+
+    assert int(tokenURIJson['attributes'][0]['value']) <= 10
+
+    a = tokenURIJson['image'][26:]
+    svg_bytes = base64.b64decode(a)
+    utf = svg_bytes.decode('utf-8')
+        
+    assert '<text x="0" y="100" fill="black">NFTemplate SVG:' in utf
