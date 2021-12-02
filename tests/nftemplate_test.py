@@ -96,7 +96,6 @@ def test_mints():
     with brownie.reverts("Ownable: caller is not the owner"):
         transaction = nft.withdrawAll({"from":dev2})
 
-
     nft_m_2 = NFTemplateSVGMetadata2.deploy(
         {"from": dev},
         publish_source = publish_source

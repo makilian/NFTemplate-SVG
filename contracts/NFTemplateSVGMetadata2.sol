@@ -30,7 +30,7 @@ contract NFTemplateSVGMetadata2 is Ownable, INFTemplateSVGMetadata {
         parts[1] = ' x="0px" y="0px" viewBox="0 0 1000 1000" xml:space="preserve">';
         parts[2] = styles();
         parts[3] = '<rect x="0" y="0" fill="white"></rect>';
-        parts[4] = '<rect x="0" y="500" fill="white"></rect>';
+        parts[4] = '<rect x="0" y="500" fill="green"></rect>';
         parts[5] = '<text x="0" y="100" fill="black">NFTemplate SVG: ';
         parts[6] = Strings.toString(tokenId);
         parts[7] = '</text>';

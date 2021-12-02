@@ -1,6 +1,7 @@
-from brownie import NFTemplateSVG, NFTemplateSVGMetadata, accounts, config, network
+from brownie import NFTemplateSVG, NFTemplateSVGMetadata, NFTemplateSVGMetadata2, accounts, config, network
 import json
 import base64
+import time
 
 def main():
 
@@ -26,6 +27,26 @@ def main():
 		tx.wait(1)
 
 	for i in range(0, nft.totalSupply()):
+		t = nft.tokenURI(i)
+		decoded = base64.b64decode(t[29:])
+		tokenURIJson = json.loads(decoded)
+		a = tokenURIJson['image'][26:]
+		svg_bytes = base64.b64decode(a)
+
+		file_name = './token_svgs/token' + str(i) + '.svg'
+		with open(file_name, 'w') as f:
+			f.write(svg_bytes.decode('utf-8'))
+
+	time.sleep(25)
+
+	nft_m_2 = NFTemplateSVGMetadata2.deploy(
+		{"from": dev},
+		publish_source = publish_source
+	)
+	tx = nft.setMetadataAddress(nft_m_2, {"from":dev})
+	tx.wait(1)
+
+	for i in range(50, nft.totalSupply()):
 		t = nft.tokenURI(i)
 		decoded = base64.b64decode(t[29:])
 		tokenURIJson = json.loads(decoded)
