@@ -1,11 +1,21 @@
-from brownie import NFTemplateSVG, accounts, network, config
+from brownie import NFTemplateSVG, NFTemplateSVGMetadata, accounts, network, config
 
 def main():
 	dev = accounts.add(config['wallets']['from_key'])
 	print(network.show_active())
 	publish_source = False
-	cypher = NFTemplateSVG.deploy(
+
+	nft_m = NFTemplateSVGMetadata.deploy(
+        {"from": dev},
+        publish_source = publish_source
+    )
+
+	nft = NFTemplateSVG.deploy(
 		{"from": dev},
 		publish_source = publish_source
 	)
-	return cypher
+
+	tx = nft.setMetadataAddress(nft_m, {"from":dev})
+	tx.wait(1)
+
+	return nft
