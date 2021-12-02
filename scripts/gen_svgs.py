@@ -2,6 +2,7 @@ from brownie import NFTemplateSVG, NFTemplateSVGMetadata, NFTemplateSVGMetadata2
 import json
 import base64
 import time
+import os
 
 def main():
 
@@ -34,8 +35,9 @@ def main():
 		svg_bytes = base64.b64decode(a)
 
 		file_name = './token_svgs/token' + str(i) + '.svg'
-		with open(file_name, 'w') as f:
-			f.write(svg_bytes.decode('utf-8'))
+		os.makedirs(os.path.dirname(file_name), exist_ok=True)
+		with open(file_name, "w") as f:
+		    f.write(svg_bytes.decode('utf-8'))
 
 	time.sleep(25)
 
@@ -54,5 +56,6 @@ def main():
 		svg_bytes = base64.b64decode(a)
 
 		file_name = './token_svgs/token' + str(i) + '.svg'
-		with open(file_name, 'w') as f:
-			f.write(svg_bytes.decode('utf-8'))
+		os.makedirs(os.path.dirname(file_name), exist_ok=True)
+		with open(file_name, "w") as f:
+		    f.write(svg_bytes.decode('utf-8'))
