@@ -7,4 +7,4 @@ The contracts are written in solidity, and the scripts use the Python-based [bro
 Once you have brownie installed and environment variables configured, run brownie init, and then you can run commands such as:
 - brownie compile (to compile contracts)
 - brownie test --gas -vv (to run the tests in the tests/ directory)
-- brownie run scripts/gen_svgs.py (to generate SVGs for all tokens and store them in the gen_svgs directory for quick inspection)
+- brownie run scripts/gen_svgs.py (to generate SVGs for all tokens and store in ./token_svgs, upgrade contract to second rendering contract and regenerates the second half of the tokens in ./token_svgs using the new rendering contract)
